@@ -1,12 +1,9 @@
 package tests;
-
-import org.apache.commons.lang3.ObjectUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import staticdata.WebUrls;
-
 import java.util.List;
 
 public class HerokuAppTests extends BaseTest {
@@ -42,9 +39,7 @@ public class HerokuAppTests extends BaseTest {
     public void checkDueAndWebSiteDataIsTrueTest() {
         //Open start page
         driver.get(WebUrls.HEROKUAPP_DATATABLE_PAGE);
-
         List<WebElement> trs = driver.findElements(By.xpath("//*[@id='table2']//tr"));
-
         for (Integer i = 0; i < trs.size(); i++) {
             String email = trs.get(i).findElement(By.xpath("//td[@class='email']")).getText();
             if (email == "fbach@yahoo.com") {
