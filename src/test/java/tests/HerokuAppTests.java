@@ -1,9 +1,12 @@
 package tests;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import staticdata.WebUrls;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class HerokuAppTests extends BaseTest {
@@ -27,11 +30,13 @@ public class HerokuAppTests extends BaseTest {
     public void checkFirstNameAndSecondNameIsTrueTest() {
         //Open start page
         driver.get(WebUrls.HEROKUAPP_DATATABLE_PAGE);
-        //Check that first name element is true
-        String firstName = driver.findElement(By.xpath("//*[@id='table1']//td[text()='Frank']")).getText();
+        //Find email
+        String email = driver.findElement(By.xpath("//table[@id='table1']//tr//td[text()='fbach@yahoo.com']")).getText();
+        Assert.assertEquals(email, "fbach@yahoo.com");
+        //Find first name
+        String firstName = driver.findElement(By.xpath("(//table[@id='table1']//tr//td[text()='fbach@yahoo.com']//preceding-sibling::td)[2]")).getText();
         Assert.assertEquals(firstName, "Frank");
-        //Check that second name element is true
-        String secondName = driver.findElement(By.xpath("//*[@id='table1']//td[text()='Bach']")).getText();
+        String secondName = driver.findElement(By.xpath("(//table[@id='table1']//tr//td[text()='fbach@yahoo.com']//preceding-sibling::td)[1]")).getText();
         Assert.assertEquals(secondName, "Bach");
     }
 
@@ -39,15 +44,15 @@ public class HerokuAppTests extends BaseTest {
     public void checkDueAndWebSiteDataIsTrueTest() {
         //Open start page
         driver.get(WebUrls.HEROKUAPP_DATATABLE_PAGE);
-        List<WebElement> trs = driver.findElements(By.xpath("//*[@id='table2']//tr"));
-        for (Integer i = 0; i < trs.size(); i++) {
-            String email = trs.get(i).findElement(By.xpath("//td[@class='email']")).getText();
-            if (email == "fbach@yahoo.com") {
-                String dues = trs.get(i).findElement(By.xpath("//td[@class='dues']")).getText();
-                String website = trs.get(i).findElement(By.xpath("//td[@class='web-site']")).getText();
-                Assert.assertEquals(dues, "$51.00");
-                Assert.assertEquals(website, "http://www.frank.com");
-            }
-        }
+        //Find email
+        String email = driver.findElement(By.xpath("//table[@id='table1']//tr//td[text()='fbach@yahoo.com']")).getText();
+        Assert.assertEquals(email, "fbach@yahoo.com");
+        //Find Due
+        String due = driver.findElement(By.xpath("(//table[@id='table1']//tr//td[text()='fbach@yahoo.com']//following-sibling::td)[1]")).getText();
+        Assert.assertEquals(due, "$51.00");
+        //Find WebSite
+        String website = driver.findElement(By.xpath("(//table[@id='table1']//tr//td[text()='fbach@yahoo.com']//following-sibling::td)[2]")).getText();
+        Assert.assertEquals(website, "http://www.frank.com");
     }
 }
+
