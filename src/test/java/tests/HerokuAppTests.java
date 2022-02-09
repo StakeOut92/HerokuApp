@@ -1,13 +1,8 @@
 package tests;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import staticdata.WebUrls;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class HerokuAppTests extends BaseTest {
 
@@ -16,14 +11,15 @@ public class HerokuAppTests extends BaseTest {
         //Open start page
         driver.get(WebUrls.HEROKUAPP_ADD_REMOVE_ELEMENTS_PAGE);
         //Click on 'Add element' button
-        driver.findElement(By.xpath("//*[@class='example']//*[text()='Add Element']")).click();
+        driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
         //Click on 'Add element' button
-        driver.findElement(By.xpath("//*[@class='example']//*[text()='Add Element']")).click();
+        driver.findElement(By.xpath("//button[@onclick='addElement()']")).click();
         //Delete one element
-        driver.findElement(By.xpath("//*[@id='elements']//*[@class='added-manually']")).click();
+        driver.findElement(By.xpath("//button[@onclick='deleteElement()']")).click();
         //Test that one element is enable
-        boolean elementEnable = driver.findElement(By.xpath("//*[@id='elements']//*[@class='added-manually']")).isDisplayed();
-        Assert.assertTrue(elementEnable, "No any elements is displayed");
+        int countElements = driver.findElements(By.xpath("//button[@onclick='deleteElement()' and contains (text(),'Delete')]")).size();
+        System.out.println("Count of elements is " +countElements);
+        //Assert.assertTrue(elementEnable, "No any elements is displayed");
     }
 
     @Test
