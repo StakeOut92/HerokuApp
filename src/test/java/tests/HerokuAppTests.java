@@ -1,8 +1,12 @@
 package tests;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import staticdata.WebUrls;
+
+import java.util.List;
 
 public class HerokuAppTests extends BaseTest {
 
@@ -18,8 +22,7 @@ public class HerokuAppTests extends BaseTest {
         driver.findElement(By.xpath("//button[@onclick='deleteElement()']")).click();
         //Test that one element is enable
         int countElements = driver.findElements(By.xpath("//button[@onclick='deleteElement()' and contains (text(),'Delete')]")).size();
-        System.out.println("Count of elements is " +countElements);
-        //Assert.assertTrue(elementEnable, "No any elements is displayed");
+        Assert.assertTrue(countElements > 0, "No any elements is displayed");
     }
 
     @Test
@@ -50,5 +53,40 @@ public class HerokuAppTests extends BaseTest {
         String website = driver.findElement(By.xpath("(//table[@id='table1']//tr//td[text()='fbach@yahoo.com']//following-sibling::td)[2]")).getText();
         Assert.assertEquals(website, "http://www.frank.com");
     }
+
+    @Test
+    public void findElementsWithIterationTest() {
+        driver.get(WebUrls.HEROKUAPP_DATATABLE_PAGE);
+        List<WebElement> trs = driver.findElements(By.xpath("//*[@id='table2']//tr"));
+        String dues = "";
+        String website = "";
+        for (int i = 0; i < trs.size(); i++) {
+            String email = trs.get(i).findElement(By.className("email")).getText();
+            if (email.equals("fbach@yahoo.com")) {
+                dues = trs.get(i).findElement(By.className("dues")).getText();
+                website = trs.get(i).findElement(By.className("web-site")).getText();
+            }
+        }
+        Assert.assertEquals(dues, "$51.00");
+        Assert.assertEquals(website, "http://www.frank.com");
+    }
+
+    @Test
+    public void someoneTest() {
+        driver.get(WebUrls.HEROKUAPP_DATATABLE_PAGE);
+        List<WebElement> trs = driver.findElements(By.xpath("//*[@id='table2']//tr"));
+        String dues = "";
+        String website = "";
+        for (WebElement element : trs) {
+            String email = element.findElement(By.className("email")).getText();
+            if (email.equals("fbach@yahoo.com")) {
+                dues = element.findElement(By.className("dues")).getText();
+                website = element.findElement(By.className("web-site")).getText();
+            }
+        }
+        Assert.assertEquals(dues, "$51.00");
+        Assert.assertEquals(website, "http://www.frank.com");
+    }
 }
+
 

@@ -6,7 +6,6 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 import staticdata.WebUrls;
 
-
 public class CheckBoxesTest extends BaseTest {
 
     @Test
@@ -15,11 +14,7 @@ public class CheckBoxesTest extends BaseTest {
         driver.get(WebUrls.HEROKUAPP_CHECKBOX_PAGE);
         //Find 1st checkbox
         WebElement checkbox1 = driver.findElement(By.xpath("//form[@id='checkboxes']//input[1]"));
-        if (checkbox1.isSelected()) {
-            Assert.fail("Checkbox is selected");
-        } else {
-            System.out.println("Checkbox is not selected");
-        }
+        Assert.assertFalse(checkbox1.isSelected(),"Checkbox 1 is selected");
     }
 
     @Test
@@ -49,10 +44,6 @@ public class CheckBoxesTest extends BaseTest {
         //Find second checkbox and click on them
         driver.findElement(By.xpath("//form[@id='checkboxes']//input[2]")).click();
         WebElement checkbox2 = driver.findElement(By.xpath("//form[@id='checkboxes']//input[2]"));
-        if (checkbox2.isSelected()) {
-            Assert.fail("Checkbox is selected");
-        } else {
-            System.out.println("Checkbox is not selected");
-        }
+        Assert.assertFalse(checkbox2.isSelected(),"Checkbox is selected");
     }
 }

@@ -16,7 +16,7 @@ public class NotificationMessageTest extends BaseTest {
         driver.findElement(By.xpath("//div[@class='example']//a[text()='Click here']")).click();
         driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
         //Find notification message and check that it correct
-        String noteMessage = driver.findElement(By.xpath("//div[@class='flash notice']")).getText();
+        String noteMessage = driver.findElement(By.id("flash-messages")).getText();
         Assert.assertEquals(noteMessage, "Action successful\n" + "×");
     }
 }
