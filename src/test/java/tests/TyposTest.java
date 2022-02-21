@@ -1,20 +1,15 @@
 package tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-import staticdata.WebUrls;
+import pompages.TyposPage;
 
 public class TyposTest extends BaseTest {
+    TyposPage typosPage;
 
     @Test
     public void typosTest() {
-        driver.get(WebUrls.HEROKUAPP_TYPOS_PAGE);
-        String typosTypesText = "";
-        for (int i = 0; i <= 10; i++) {
-            driver.navigate().refresh();
-            typosTypesText = driver.findElement(By.xpath("//div[@class='example']//p[2]")).getText();
-        }
-        Assert.assertEquals(typosTypesText, "Sometimes you'll see a typo, other times you won't.", "This message has a mistake");
+         typosPage = new TyposPage(driver);
+         Assert.assertEquals(typosPage.findTyposText(),"Sometimes you'll see a typo, other times you won't.","This message has a mistake");
     }
 }
