@@ -5,7 +5,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import staticdata.FilePath;
 import staticdata.WebUrls;
-
 import java.util.concurrent.TimeUnit;
 
 public class FileUploadPage extends BasePage {
